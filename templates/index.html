@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino Control and Camera Feed</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #main-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1400px; /* Adjust width as needed */
+            padding: 0 20px;
+        }
+        .info-box {
+            margin: 0 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            width: 350px; /* Adjust width as needed */
+            text-align: left;
+        }
+        .info-box h2 {
+            text-transform: uppercase;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+    .info-box ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .info-box li {
+        margin-bottom: 10px;
+        white-space: nowrap; /* Prevent line breaks */
+    }
+        #camera-feed {
+            width: 640px;
+            height: 480px;
+            border: 1px solid #ddd;
+        }
+        #command-form {
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Arduino Control and Camera Feed</h1>
+
+    <div id="main-container">
+        <div class="info-box" id="mode-info">
+            <h2>Thermal Sensor Mode</h2>
+            <ul>
+                <li>1. Fusion = Press "Z"</li>
+                <li>2. White Hot = Press "X"</li>
+                <li>3. Rainbow = Press "C"</li>
+            </ul>
+        </div>
+
+        <div>
+            <img id="camera-feed" src="{{ url_for('video_feed') }}" alt="Camera Feed">
+        </div>
+
+        <div class="info-box" id="night-vision-info">
+            <h2>Night Vision and Normal Mode</h2>
+            <ul>
+                <li>1. Night vision and Normal mode = Press "A" </li>
+                <li>2. Lamp ON = Press "S"</li>
+                <li>3. Lamp OFF = Press "D"</li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div id="command-form">
+        <form action="/send_command" method="POST">
+            <input type="text" name="command" placeholder="Enter Arduino Command" required>
+            <input type="submit" value="Send">
+        </form>
+    </div>
+</body>
+</html>
